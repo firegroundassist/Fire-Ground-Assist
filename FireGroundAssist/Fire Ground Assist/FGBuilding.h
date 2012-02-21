@@ -14,14 +14,6 @@
 @interface FGBuilding : NSObject{
     
     
-    // Protection Info
-    NSString *sprinklerInfo;
-    NSString *fdcLoc;
-    NSString *standLoc;
-    NSString *standDesc;
-    NSString *gasLoc;
-    NSString *electLoc;
-    NSString *waterLoc;
     
 }
 @property (retain) NSString* buildingName;
