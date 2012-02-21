@@ -51,6 +51,7 @@
             
             
             FGBuilding* b = [[FGBuilding alloc] initWithJSONData:results];
+            rsltKnox.text = [b.accessInfo objectForKey:@"knoxBox_desc"];
             /*
             NSLog(@"%@", b.buildingName);
             

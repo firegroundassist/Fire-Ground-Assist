@@ -13,8 +13,6 @@
 
 @interface FGBuilding : NSObject{
     
-    
-    
 }
 @property (copy, nonatomic) NSString* buildingName;
 @property (copy, nonatomic) NSString* address;
