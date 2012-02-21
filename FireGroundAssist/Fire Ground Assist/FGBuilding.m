@@ -22,11 +22,8 @@
     
     if(self) {
         self.buildingName = [data objectForKey:@"name"];
-        NSLog(@"%@", self.buildingName);
         self.address = [data objectForKey:@"address"];
-        NSLog(@"%@", self.address);
         self.accessInfo = [self parseArrayForDictionary: [data objectForKey:@"access info"]];
-        NSLog(@"%@", [self.accessInfo description]);
         self.constructionInfo = [self parseArrayForDictionary: [data objectForKey:@"construction info"]];
         self.protectionInfo = [self parseArrayForDictionary: [data objectForKey:@"protection info"]];
     }
@@ -36,7 +33,7 @@
 
 - (NSDictionary*) parseArrayForDictionary: (NSArray*)data
 {
-    NSDictionary* result = [[NSDictionary alloc] init];
+    NSMutableDictionary* result = [NSMutableDictionary dictionary];
     for (NSString *a in data) {
         NSArray *components = [a componentsSeparatedByString:@"=="];
         NSString *paramter = [components objectAtIndex:0];
