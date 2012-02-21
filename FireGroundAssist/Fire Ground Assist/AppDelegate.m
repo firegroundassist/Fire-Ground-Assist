@@ -21,7 +21,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
     
     HomeVC *first = [[HomeVC alloc] initWithNibName:@"HomeVC" bundle:nil];
     first.view.frame = [UIScreen mainScreen].applicationFrame;
