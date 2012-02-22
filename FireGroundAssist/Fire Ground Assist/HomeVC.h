@@ -10,7 +10,7 @@
 #import "URLRequest.h"
 #import "JSON.h"
 
-@interface HomeVC : UIViewController{
+@interface HomeVC : UIViewController <UITextFieldDelegate> {
     URLRequest *req;
     IBOutlet UITextField *addressField;
     IBOutlet UILabel *rslt;

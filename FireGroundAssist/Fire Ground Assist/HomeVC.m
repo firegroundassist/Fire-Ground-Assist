@@ -13,6 +13,7 @@
 
 - (IBAction) findBuilding
 {
+    [addressField resignFirstResponder]; 
     NSString *addr = [addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *url = [NSString stringWithFormat:@"http://www.firegroundassist.com/building?address=%@", addr];
     NSLog(@"findBuilding: %@", url);
@@ -23,6 +24,12 @@
     [req setHttpMethod:@"GET"];
     [req sendRequest];
 
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
+{
+    [textField resignFirstResponder];
+    return  TRUE;
 }
 
 - (void)requestData:(NSArray *)pkg
@@ -88,7 +95,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+    addressField.delegate=self;
 }
 
 - (void)viewDidUnload
@@ -101,7 +110,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-	return YES;
+    BOOL a = FALSE;
+    if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft || interfaceOrientation==UIInterfaceOrientationLandscapeRight){
+        a = TRUE;
+    }
+	return a;
 }
 
 @end
