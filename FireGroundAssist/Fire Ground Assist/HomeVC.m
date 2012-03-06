@@ -11,6 +11,19 @@
 
 @implementation HomeVC
 
+@synthesize rightSideView;
+@synthesize currentBuilding;
+@synthesize accessInfoView;
+@synthesize rsltKnox;
+@synthesize rsltMainEnt;
+
+- (void) updateCurrentBuilding:(FGBuilding *)building
+{
+	self.currentBuilding = building;
+	self.rsltKnox.text = [building.accessInfo objectForKey:@"knoxBox_desc"];
+	self.rsltMainEnt.text = [building.accessInfo objectForKey:@"mainEnt"];
+	
+}
 - (IBAction) findBuilding
 {
     [addressField resignFirstResponder]; 
@@ -57,8 +70,13 @@
             }
             
             
-            FGBuilding* b = [[FGBuilding alloc] initWithJSONData:results];
-            rsltKnox.text = [b.accessInfo objectForKey:@"knoxBox_desc"];
+            [self updateCurrentBuilding:[[FGBuilding alloc] initWithJSONData:results]];
+			
+			
+			//CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(40.887952, -73.963630);
+			//MKCoordinateRegion reg = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
+			//self->map.region = reg;
+			//self->map.hidden = NO;
             /*
             NSLog(@"%@", b.buildingName);
             
