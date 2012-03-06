@@ -23,7 +23,6 @@
 
 @property (copy, nonatomic) FGBuilding* currentBuilding;
 @property (copy, nonatomic) IBOutlet UIView* accessInfoView;
-@property (copy, nonatomic) UIView* rightSideView; 
 @property (copy, nonatomic) IBOutlet UILabel* rsltKnox;
 @property (copy, nonatomic) IBOutlet UILabel* rsltMainEnt;
 

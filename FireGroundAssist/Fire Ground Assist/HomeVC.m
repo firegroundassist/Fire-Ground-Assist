@@ -11,7 +11,6 @@
 
 @implementation HomeVC
 
-@synthesize rightSideView;
 @synthesize currentBuilding;
 @synthesize accessInfoView;
 @synthesize rsltKnox;
@@ -93,7 +92,9 @@
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+	NSLog(@"test 1");
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	NSLog(@"test 2");
     if (self) {
         // Custom initialization
     }
@@ -116,6 +117,7 @@
     
     // Do any additional setup after loading the view from its nib.
     addressField.delegate=self;
+	NSLog(@"test 3");
 }
 
 - (void)viewDidUnload
