@@ -16,9 +16,9 @@
 }
 @property (copy, nonatomic) NSString* buildingName;
 @property (copy, nonatomic) NSString* address;
-@property (copy, nonatomic) NSDictionary* accessInfo; 
-@property (copy, nonatomic) NSDictionary* constructionInfo;
-@property (copy, nonatomic) NSDictionary* protectionInfo; 
+@property (retain, nonatomic) NSDictionary* accessInfo; 
+@property (retain, nonatomic) NSDictionary* constructionInfo;
+@property (retain, nonatomic) NSDictionary* protectionInfo; 
 
 - (FGBuilding*) initWithJSONData: (NSDictionary *)data;
 
