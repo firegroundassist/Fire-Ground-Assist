@@ -23,12 +23,32 @@
 	self.rsltMainEnt.text = [building.accessInfo objectForKey:@"mainEnt"];
 	
 }
+
+- (IBAction)btnPressed:(UIButton *)button
+{
+	NSLog(@"Button Pressed: %d", button.tag);
+	if (button.tag==1000) {
+		accessInfoView.titleLabel.text = @"Access Info";
+	}
+	
+	if (button.tag==1001) {
+		accessInfoView.titleLabel.text = @"Construction Info";
+	}
+}
+
 - (IBAction) findBuilding
 {
     [addressField resignFirstResponder]; 
     NSString *addr = [addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *url = [NSString stringWithFormat:@"http://www.firegroundassist.com/building?address=%@", addr];
-    NSLog(@"findBuilding: %@", url);
+    //NSLog(@"findBuilding: %@", url);
+    
+    [previousSearches addObject:addressField.text];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:previousSearches forKey:@"saved"];
+    [defaults synchronize];
+
+    
     
     if (req!=nil){ req.delegate =nil; [req release]; req = nil; }
     req = [[URLRequest alloc] initWithAddress:url parameters:nil];
@@ -68,9 +88,9 @@
                 
             }
             
-            
+            NSLog(@"Test 1");
             [self updateCurrentBuilding:[[FGBuilding alloc] initWithJSONData:results]];
-			
+			NSLog(@"Test 2");
 			
 			//CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(40.887952, -73.963630);
 			//MKCoordinateRegion reg = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
@@ -92,11 +112,22 @@
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	NSLog(@"test 1");
+	
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	NSLog(@"test 2");
+	
     if (self) {
-        // Custom initialization
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *saved = [defaults objectForKey:@"saved"];
+        if (saved==nil){
+            previousSearches = [[NSMutableArray alloc] init];
+        }
+        else{
+            previousSearches = [[NSMutableArray alloc] initWithArray:saved];
+        }
+        NSLog(@"SAVED: %@", [previousSearches description]);
+             
+        
+        
     }
     return self;
 }
@@ -117,7 +148,11 @@
     
     // Do any additional setup after loading the view from its nib.
     addressField.delegate=self;
-	NSLog(@"test 3");
+	accessInfoView = [[FGSideInfoView alloc] initWithFrame:CGRectMake(800, 300, 200, 500)];
+	accessInfoView.backgroundColor = [UIColor redColor];
+	
+	[self.view addSubview:accessInfoView];
+	
 }
 
 - (void)viewDidUnload
