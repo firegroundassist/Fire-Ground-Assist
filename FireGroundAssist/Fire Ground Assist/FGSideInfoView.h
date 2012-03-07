@@ -12,4 +12,8 @@
 	
 }
 
+@property (retain, nonatomic) UILabel* titleLabel;
+@property (retain, nonatomic) UILabel* dataLabelOne;
+@property (retain, nonatomic) UITextField* dataTextOne;
+
 @end
