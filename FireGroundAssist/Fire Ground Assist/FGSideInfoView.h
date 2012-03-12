@@ -1,5 +1,5 @@
 //
-//  FGAccessInfoView.h
+//  FGSideInfoView.h
 //  Fire Ground Assist
 //
 //  Created by Charlie Jacobson on 3/5/12.
