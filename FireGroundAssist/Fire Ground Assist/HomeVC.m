@@ -13,31 +13,32 @@
 
 @synthesize currentBuilding;
 @synthesize accessInfoView;
-@synthesize rsltKnox;
-@synthesize rsltMainEnt;
+@synthesize protectionInfoView;
 
 - (void) updateCurrentBuilding:(FGBuilding *)building
 {
 	self.currentBuilding = building;
-	self.rsltKnox.text = [building.accessInfo objectForKey:@"knoxBox_desc"];
-	self.rsltMainEnt.text = [building.accessInfo objectForKey:@"mainEnt"];
-	
+	rslt.text = [building.buildingName capitalizedString];
+	rsltAddress.text = [building.address capitalizedString];
+	[self.accessInfoView updateData:building.accessInfo]; 
+
 }
 
 - (IBAction)btnPressed:(UIButton *)button
 {
-	NSLog(@"Button Pressed: %d", button.tag);
+	accessInfoView.titleLabel.text = button.titleLabel.text;
+	[accessInfoView clearData];
 	if (button.tag==1000) {
-		accessInfoView.titleLabel.text = @"Access Info";
+		[self updateCurrentBuilding:self.currentBuilding];
 	}
-	
-	if (button.tag==1001) {
-		accessInfoView.titleLabel.text = @"Construction Info";
-	}
+
 }
 
 - (IBAction) findBuilding
 {
+	rslt.text = @"";
+	rsltAddress.text = @"";
+	[accessInfoView clearData];
     [addressField resignFirstResponder]; 
     NSString *addr = [addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *url = [NSString stringWithFormat:@"http://www.firegroundassist.com/building?address=%@", addr];
@@ -61,6 +62,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
 {
     [textField resignFirstResponder];
+	[self findBuilding];
     return  TRUE;
 }
 
@@ -76,31 +78,17 @@
         [json release];
         
         if ([confirmation isEqualToString:@"found"]){
-            rslt.text = [results objectForKey:@"name"];
-            rsltAddress.text = [results objectForKey:@"address"];
-            NSArray *accessInfo = [results objectForKey:@"access info"];
-            for (NSString *a in accessInfo) {
-                NSArray *components = [a componentsSeparatedByString:@"=="];
-                NSString *paramter = [components objectAtIndex:0];
-                NSString *value = [components objectAtIndex:1];
-                NSString *output = [[paramter stringByAppendingString:@": "] stringByAppendingString:value];
-                NSLog(@"%@", output);
-                
-            }
+//            NSArray *accessInfo = [results objectForKey:@"access info"];
+//            for (NSString *a in accessInfo) {
+//                NSArray *components = [a componentsSeparatedByString:@"=="];
+//                NSString *paramter = [components objectAtIndex:0];
+//                NSString *value = [components objectAtIndex:1];
+//                NSString *output = [[paramter stringByAppendingString:@": "] stringByAppendingString:value];
+//                NSLog(@"%@", output);
+//                
+//            }
             
-            NSLog(@"Test 1");
             [self updateCurrentBuilding:[[FGBuilding alloc] initWithJSONData:results]];
-			NSLog(@"Test 2");
-			
-			//CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(40.887952, -73.963630);
-			//MKCoordinateRegion reg = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
-			//self->map.region = reg;
-			//self->map.hidden = NO;
-            /*
-            NSLog(@"%@", b.buildingName);
-            
-            b.address, b.accessInfo, b.constructionInfo, b.protectionInfo);
-             */
             
     
         }
@@ -148,10 +136,17 @@
     
     // Do any additional setup after loading the view from its nib.
     addressField.delegate=self;
-	accessInfoView = [[FGSideInfoView alloc] initWithFrame:CGRectMake(800, 300, 200, 500)];
-	accessInfoView.backgroundColor = [UIColor redColor];
 	
+	// Access Info
+	accessInfoView = [[FGAccessInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	accessInfoView.backgroundColor = [UIColor darkGrayColor];
 	[self.view addSubview:accessInfoView];
+	
+	// Protection Info
+	protectionInfoView = [[FGProtectionInfoView alloc] initWithFrame:CGRectMake(450, 210, 300, 520)];
+	protectionInfoView.backgroundColor = [UIColor darkGrayColor];
+	[self.view addSubview:protectionInfoView];
+	
 	
 }
 

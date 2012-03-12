@@ -13,6 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "FGBuilding.h"
 #import "FGSideInfoView.h"
+#import "FGAccessInfoView.h"
+#import "FGProtectionInfoView.h"
 
 @interface HomeVC : UIViewController <UITextFieldDelegate> {
     URLRequest *req;
@@ -24,9 +26,9 @@
 }
 
 @property (retain, nonatomic) FGBuilding* currentBuilding;
-@property (retain, nonatomic) IBOutlet FGSideInfoView* accessInfoView;
-@property (retain, nonatomic) IBOutlet UILabel* rsltKnox;
-@property (retain, nonatomic) IBOutlet UILabel* rsltMainEnt;
+@property (retain, nonatomic) FGAccessInfoView* accessInfoView;
+@property (retain, nonatomic) FGProtectionInfoView* protectionInfoView;
+
 
 - (IBAction) findBuilding;
 - (void) updateCurrentBuilding:(FGBuilding*)building;
