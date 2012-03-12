@@ -11,24 +11,17 @@
 @implementation FGSideInfoView
 
 @synthesize titleLabel;
-@synthesize dataLabelOne;
-@synthesize dataTextOne;
+
 
 - (id) initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
 	if (self){
-		titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 20)];
-		titleLabel.backgroundColor = [UIColor greenColor];
+		titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.width-20, 20)];
+		titleLabel.backgroundColor = [UIColor grayColor];
+		titleLabel.textAlignment = UITextAlignmentCenter;
+		
 		[self addSubview:titleLabel];
-		
-		dataLabelOne = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 80, 20)];
-		dataLabelOne.backgroundColor = [UIColor blueColor];
-		[self addSubview:dataLabelOne];
-		
-		dataTextOne = [[UITextField alloc] initWithFrame:CGRectMake(100, 30, 80, 20)];
-		dataTextOne.backgroundColor = [UIColor blueColor];
-		[self addSubview:dataTextOne];
 		
 	}
 	return self;
@@ -37,9 +30,16 @@
 - (void) dealloc
 {
 	[titleLabel release];
-	[dataLabelOne release];
-	[dataTextOne release];
 	[super dealloc];
 }
-						  
+	
+- (void) clearData
+{
+	
+}
+
+- (void) updateData:(NSDictionary *)data
+{
+	
+}
 @end

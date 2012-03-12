@@ -1,5 +1,5 @@
 //
-//  FGSideInfoView.h
+//  FGAccessInfoView.h
 //  Fire Ground Assist
 //
 //  Created by Charlie Jacobson on 3/5/12.
@@ -13,7 +13,8 @@
 }
 
 @property (retain, nonatomic) UILabel* titleLabel;
-@property (retain, nonatomic) UILabel* dataLabelOne;
-@property (retain, nonatomic) UITextField* dataTextOne;
+
+- (void) clearData;
+- (void) updateData: (NSDictionary*) data; 
 
 @end
