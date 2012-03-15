@@ -155,6 +155,10 @@
         
         
     }
+	sideInfoX = 700;
+	sideInfoY = 210;
+	sideInfoWidth = 320;
+	sideInfoHeight = 520;
     return self;
 }
 
@@ -177,24 +181,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	CGRect sideInfoFrame = CGRectMake(sideInfoX, sideInfoY, sideInfoWidth, sideInfoHeight);
     
     // Do any additional setup after loading the view from its nib.
     addressField.delegate=self;
 	
 	// Contact Info
-	contactsView = [[FGContactInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	contactsView = [[FGContactInfoView alloc] initWithFrame:sideInfoFrame];
 	contactsView.backgroundColor = [UIColor darkGrayColor];
 	
 	// Protection Info
-	protectionInfoView = [[FGProtectionInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	protectionInfoView = [[FGProtectionInfoView alloc] initWithFrame:sideInfoFrame];
 	protectionInfoView.backgroundColor = [UIColor darkGrayColor];
 	
 	// Construction Info
-	constructionInfoView = [[FGConstructionInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	constructionInfoView = [[FGConstructionInfoView alloc] initWithFrame:sideInfoFrame];
 	constructionInfoView.backgroundColor = [UIColor darkGrayColor];
 	
 	// Access Info
-	accessInfoView = [[FGAccessInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	accessInfoView = [[FGAccessInfoView alloc] initWithFrame:sideInfoFrame];
 	accessInfoView.backgroundColor = [UIColor darkGrayColor];
 	[self.view addSubview:accessInfoView];
     

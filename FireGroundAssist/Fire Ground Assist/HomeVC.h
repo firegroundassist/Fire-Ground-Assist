@@ -27,6 +27,11 @@
     
     UIView *screen;
     UIActivityIndicatorView *spinner;
+	
+	NSInteger sideInfoX;
+	NSInteger sideInfoY;
+	NSInteger sideInfoWidth;
+	NSInteger sideInfoHeight;
 
 }
 
