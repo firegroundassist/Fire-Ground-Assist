@@ -111,7 +111,7 @@
 {
 	sprinklerText.text = [data objectForKey:@"sprinkler"];
 	FDCLocText.text = [data objectForKey:@"FDC_loc"];
-	standDescText.text = [data objectForKey:@"stand_loc"];
+	standLocText.text = [data objectForKey:@"stand_loc"];
 	standDescText.text = [data objectForKey:@"stand_desc"];
 	gasLocText.text = [data objectForKey:@"gas_loc"];
 	electLocText.text = [data objectForKey:@"elect_loc"];
@@ -122,7 +122,7 @@
 {
 	sprinklerText.text = @"";
 	FDCLocText.text = @"";
-	standDescText.text = @"";
+	standLocText.text = @"";
 	standDescText.text = @"";
 	gasLocText.text = @"";
 	electLocText.text = @"";

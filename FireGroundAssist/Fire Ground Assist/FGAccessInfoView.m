@@ -10,8 +10,7 @@
 
 @implementation FGAccessInfoView
 
-@synthesize knoxBoxLabel;
-@synthesize knoxBoxText;
+@synthesize knoxBoxLabel, knoxBoxText;
 @synthesize mainEntLabel;
 @synthesize mainEntText;
 @synthesize roofAccLabel;
@@ -27,6 +26,8 @@
     if (self) {
         // Initialization code
 		super.titleLabel.text = @"Access Info";
+		
+		
 		
 		//Knox Box
 		knoxBoxLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, self.frame.size.width-60, 20)];
