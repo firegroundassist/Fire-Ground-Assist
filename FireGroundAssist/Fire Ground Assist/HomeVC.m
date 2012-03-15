@@ -14,6 +14,7 @@
 @synthesize currentBuilding;
 @synthesize accessInfoView;
 @synthesize protectionInfoView;
+@synthesize constructionInfoView, contactsView;
 
 - (void) updateCurrentBuilding:(FGBuilding *)building
 {
@@ -21,15 +22,37 @@
 	rslt.text = [building.buildingName capitalizedString];
 	rsltAddress.text = [building.address capitalizedString];
 	[self.accessInfoView updateData:building.accessInfo]; 
-
+	[self.protectionInfoView updateData:building.protectionInfo];
+	[self.constructionInfoView updateData:building.constructionInfo];
+	//[self.contactsView updateData:building.contactInfo];
 }
 
 - (IBAction)btnPressed:(UIButton *)button
 {
-	accessInfoView.titleLabel.text = button.titleLabel.text;
-	[accessInfoView clearData];
-	if (button.tag==1000) {
-		[self updateCurrentBuilding:self.currentBuilding];
+	//converting button name into respective property key
+	NSArray* nameParts = [button.titleLabel.text componentsSeparatedByString:@" "];
+	NSMutableArray* newNameParts = [nameParts mutableCopy];
+	[newNameParts replaceObjectAtIndex:0 withObject:[(NSString*)[nameParts objectAtIndex:0] lowercaseString]];
+	NSString* viewName = @"";
+	
+	for (NSString* currentWord in newNameParts){
+		viewName = [viewName stringByAppendingString:currentWord];
+	}
+	
+	NSString* viewNameTwo = [viewName stringByAppendingString:@"InfoView"];
+	viewName = [viewName stringByAppendingString:@"View"];
+		
+	// switching visible view using property key
+	@try {
+		[self.view addSubview:[self valueForKey:viewName]];
+	}
+	@catch (NSException *exception) {
+		@try {
+			[self.view addSubview:[self valueForKey:viewNameTwo]];
+		}
+		@catch (NSException *exception) {
+			return;
+		}
 	}
 
 }
@@ -39,6 +62,8 @@
 	rslt.text = @"";
 	rsltAddress.text = @"";
 	[accessInfoView clearData];
+	[protectionInfoView clearData];
+	[constructionInfoView clearData];
     [addressField resignFirstResponder]; 
     NSString *addr = [addressField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *url = [NSString stringWithFormat:@"http://www.firegroundassist.com/building?address=%@", addr];
@@ -56,6 +81,9 @@
     req.delegate = self;
     [req setHttpMethod:@"GET"];
     [req sendRequest];
+    screen.hidden = FALSE;
+    [spinner startAnimating];
+    spinner.hidden = FALSE;
 
 }
 
@@ -93,8 +121,18 @@
     
         }
         else{
+			UIAlertView* buildingNotFound = [[UIAlertView alloc] 
+											 initWithTitle:@"Not Found" 
+											 message:@"Building not found" 
+											 delegate:nil 
+											 cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+			[buildingNotFound show];
+			[buildingNotFound release];
             rslt.text = @"Not Found";
         }
+        screen.hidden = TRUE;
+        [spinner stopAnimating];
+        spinner.hidden = YES;
         
     }
 }
@@ -120,6 +158,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [screen release];
+    [super dealloc];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -137,16 +181,32 @@
     // Do any additional setup after loading the view from its nib.
     addressField.delegate=self;
 	
+	// Contact Info
+	contactsView = [[FGContactInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	contactsView.backgroundColor = [UIColor darkGrayColor];
+	
+	// Protection Info
+	protectionInfoView = [[FGProtectionInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	protectionInfoView.backgroundColor = [UIColor darkGrayColor];
+	
+	// Construction Info
+	constructionInfoView = [[FGConstructionInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
+	constructionInfoView.backgroundColor = [UIColor darkGrayColor];
+	
 	// Access Info
 	accessInfoView = [[FGAccessInfoView alloc] initWithFrame:CGRectMake(700, 210, 300, 520)];
 	accessInfoView.backgroundColor = [UIColor darkGrayColor];
 	[self.view addSubview:accessInfoView];
-	
-	// Protection Info
-	protectionInfoView = [[FGProtectionInfoView alloc] initWithFrame:CGRectMake(450, 210, 300, 520)];
-	protectionInfoView.backgroundColor = [UIColor darkGrayColor];
-	[self.view addSubview:protectionInfoView];
-	
+    
+    screen = [[UIView alloc] initWithFrame:self.view.frame];
+    screen.backgroundColor = [UIColor blackColor];
+    screen.alpha = 0.6f;
+    screen.hidden = YES;
+    [self.view addSubview:screen];
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(500, 200, 20, 20)];
+    spinner.hidden = YES;
+    [self.view addSubview:spinner];
 	
 }
 

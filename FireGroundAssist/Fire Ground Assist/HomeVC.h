@@ -15,6 +15,8 @@
 #import "FGSideInfoView.h"
 #import "FGAccessInfoView.h"
 #import "FGProtectionInfoView.h"
+#import "FGConstructionInfoView.h"
+#import "FGContactInfoView.h"
 
 @interface HomeVC : UIViewController <UITextFieldDelegate> {
     URLRequest *req;
@@ -22,12 +24,17 @@
     IBOutlet UILabel *rslt;
     IBOutlet UILabel *rsltAddress;
     NSMutableArray *previousSearches;
+    
+    UIView *screen;
+    UIActivityIndicatorView *spinner;
 
 }
 
 @property (retain, nonatomic) FGBuilding* currentBuilding;
 @property (retain, nonatomic) FGAccessInfoView* accessInfoView;
 @property (retain, nonatomic) FGProtectionInfoView* protectionInfoView;
+@property (retain, nonatomic) FGConstructionInfoView* constructionInfoView;
+@property (retain, nonatomic) FGContactInfoView* contactsView;
 
 
 - (IBAction) findBuilding;
