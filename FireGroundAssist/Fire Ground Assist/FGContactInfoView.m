@@ -10,7 +10,7 @@
 
 @implementation FGContactInfoView
 
-@synthesize contactsScrollArea;
+@synthesize contactsScrollArea, contactTwo;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,10 +19,16 @@
         // Initialization code
 		super.titleLabel.text = @"Contact Info";
 		
-		FGContactView* contactOne = [[FGContactView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width-20, 50)];
+		FGContactView* contactOne = [[FGContactView alloc] initWithFrame:CGRectMake(10, 40, self.frame.size.width-20, 50)];
 		contactOne.tag = 1111;
-		contactOne.position.text = @"Contact One";
+		contactOne.layer.masksToBounds = YES;
 		[self addSubview:contactOne];
+		
+		contactTwo = [[FGContactView alloc] initWithFrame:CGRectMake(10, 100, self.frame.size.width-20, 50)];
+		contactTwo.tag = 2222;
+		contactTwo.position.text = @"Engineer";
+		contactTwo.name.text = @"John Smith";
+		[self addSubview:contactTwo];
 		
 //		contactsScrollArea = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 40, self.frame.size.width-20, self.frame.size.height-50)];
 //		contactsScrollArea.backgroundColor = [UIColor whiteColor];
@@ -94,9 +100,17 @@
     NSLog(@"touchesEnded: %d", touchView.tag);
     if (touchView.tag==1111){
 		FGContactView *contactOne = (FGContactView *)touchView;
-		[contactOne expandOrCollapseView];
-
-        
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:.5];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		CGRect a = CGRectMake(contactTwo.frame.origin.x, contactTwo.frame.origin.y + [contactOne expandOrCollapseView], contactTwo.frame.size.width, contactTwo.frame.size.height) ;
+		
+		contactTwo.frame=a;
+		[UIView commitAnimations];
+    }
+	
+	if (touchView.tag==2222){
+		[contactTwo expandOrCollapseView];
     }
     
     

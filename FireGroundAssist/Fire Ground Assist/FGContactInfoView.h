@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FGSideInfoView.h"
 #import "FGContactView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FGContactInfoView : FGSideInfoView
 
 @property (retain, nonatomic) UIScrollView* contactsScrollArea;
+
+@property (retain, nonatomic) FGContactView* contactTwo;
 
 @end
