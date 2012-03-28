@@ -12,6 +12,7 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUILabel</string>
+			<string>IBMKMapView</string>
 			<string>IBUIButton</string>
 			<string>IBUIView</string>
 			<string>IBUITextField</string>
@@ -116,7 +117,7 @@
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="985547893">
+							<object class="NSColorSpace" key="NSCustomColorSpace">
 								<int key="NSID">2</int>
 							</object>
 						</object>
@@ -293,7 +294,7 @@
 						<string key="NSFrame">{{877, 165}, {145, 40}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="722885939"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">1002</int>
@@ -335,6 +336,30 @@
 						<reference key="IBUIFontDescription" ref="28326639"/>
 						<reference key="IBUIFont" ref="454532553"/>
 					</object>
+					<object class="IBMKMapView" id="722885939">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{0, 246}, {584, 482}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="162689397"/>
+						<string key="NSReuseIdentifierKey">_NS:801</string>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
+					<object class="IBMKMapView" id="162689397">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">-2147483380</int>
+						<string key="NSFrame">{{1, 213}, {617, 515}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+						<string key="NSReuseIdentifierKey">_NS:801</string>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 				<reference key="NSSuperview"/>
@@ -342,8 +367,7 @@
 				<reference key="NSNextKeyView" ref="603970744"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="985547893"/>
+					<bytes key="NSWhite">MAA</bytes>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
@@ -389,6 +413,14 @@
 						<reference key="destination" ref="408898388"/>
 					</object>
 					<int key="connectionID">12</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">map</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="162689397"/>
+					</object>
+					<int key="connectionID">74</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -497,6 +529,8 @@
 							<reference ref="600702255"/>
 							<reference ref="746690066"/>
 							<reference ref="893636717"/>
+							<reference ref="722885939"/>
+							<reference ref="162689397"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -555,6 +589,16 @@
 						<reference key="object" ref="893636717"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">72</int>
+						<reference key="object" ref="722885939"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">73</int>
+						<reference key="object" ref="162689397"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -573,13 +617,15 @@
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">71</int>
+			<int key="maxID">74</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -602,6 +648,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="addressField">UITextField</string>
+						<string key="map">MKMapView</string>
 						<string key="rslt">UILabel</string>
 						<string key="rsltAddress">UILabel</string>
 					</dictionary>
@@ -609,6 +656,10 @@
 						<object class="IBToOneOutletInfo" key="addressField">
 							<string key="name">addressField</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="map">
+							<string key="name">map</string>
+							<string key="candidateClassName">MKMapView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="rslt">
 							<string key="name">rslt</string>

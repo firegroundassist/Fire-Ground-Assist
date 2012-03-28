@@ -14,7 +14,7 @@
 @synthesize currentBuilding;
 @synthesize accessInfoView;
 @synthesize protectionInfoView;
-@synthesize constructionInfoView, contactsView;
+@synthesize constructionInfoView, contactsView, map;
 
 - (void) updateCurrentBuilding:(FGBuilding *)building
 {
@@ -24,6 +24,7 @@
 	[self.accessInfoView updateData:building.accessInfo]; 
 	[self.protectionInfoView updateData:building.protectionInfo];
 	[self.constructionInfoView updateData:building.constructionInfo];
+
 	//[self.contactsView updateData:building.contactInfo];
 }
 
@@ -44,11 +45,19 @@
 		
 	// switching visible view using property key
 	@try {
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:[self valueForKey:viewName] cache:YES];
+		[UIView setAnimationDuration:1];
 		[self.view addSubview:[self valueForKey:viewName]];
+		[UIView commitAnimations];
 	}
 	@catch (NSException *exception) {
 		@try {
+			[UIView beginAnimations:nil context:NULL];
+			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:[self valueForKey:viewNameTwo] cache:YES];
+			[UIView setAnimationDuration:1];
 			[self.view addSubview:[self valueForKey:viewNameTwo]];
+			[UIView commitAnimations];
 		}
 		@catch (NSException *exception) {
 			return;
@@ -155,7 +164,7 @@
         
         
     }
-	sideInfoX = 700;
+	sideInfoX = 645;
 	sideInfoY = 210;
 	sideInfoWidth = 320;
 	sideInfoHeight = 520;
@@ -181,6 +190,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(40.88787210, -73.96411739999999);
+	MKCoordinateRegion reg = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+	map.region = reg;
+	MKPointAnnotation* ann = [[MKPointAnnotation alloc] init];
+	ann.coordinate = loc;
+	ann.title = @"Dwight-Englewood";
+	ann.subtitle = @"315 East Palisades Ave";
+	[map addAnnotation:ann];
+	[ann release];
+	map.hidden = NO;
+	
 	CGRect sideInfoFrame = CGRectMake(sideInfoX, sideInfoY, sideInfoWidth, sideInfoHeight);
     
     // Do any additional setup after loading the view from its nib.
@@ -212,6 +232,42 @@
     spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(500, 200, 20, 20)];
     spinner.hidden = YES;
     [self.view addSubview:spinner];
+	
+	// Rotated Navigation Bar
+	UIView* navBar = [[UIView alloc] initWithFrame:CGRectMake(970, 200, 50, 520)];
+	navBar.backgroundColor = [UIColor lightGrayColor];
+	NSArray* navBarTitles = [NSArray arrayWithObjects:@"Main", @"Access", @"Hydrants", @"Construction", @"Protection", @"Contacts", nil];
+	int xPos = 1;
+	
+	for (int i = 0; i<navBarTitles.count; i++) {
+	
+		UIView* tabOne = [[UIView alloc] initWithFrame:CGRectMake(5, xPos, 40, 90)];
+		tabOne.backgroundColor = [UIColor darkGrayColor];
+		CATextLayer* t = [[CATextLayer alloc] init];
+		t.string = [navBarTitles objectAtIndex:i];
+		t.bounds = CGRectMake(0, 0, tabOne.frame.size.height-10, 2*tabOne.frame.size.width/3.0-10);
+		//t.backgroundColor = [[UIColor blueColor] CGColor];
+		t.position = CGPointMake(t.bounds.size.height+5, 5);
+		t.fontSize = 14.0;
+		t.alignmentMode = kCAAlignmentCenter;
+		t.wrapped = YES;
+		
+		t.anchorPoint = CGPointMake(0, 0);
+		[t setAffineTransform:CGAffineTransformMakeRotation(M_PI/2.0)];
+		[tabOne.layer addSublayer:t];
+		[t release];
+		 
+		[navBar addSubview:tabOne];
+		[tabOne release];
+		
+		xPos +=91;
+		CGRect f = navBar.frame;
+		f.size.height=xPos;
+		navBar.frame = f;
+	}
+	
+	[self.view addSubview:navBar];
+	[navBar release];
 	
 }
 

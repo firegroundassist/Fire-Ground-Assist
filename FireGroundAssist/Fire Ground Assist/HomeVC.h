@@ -17,6 +17,7 @@
 #import "FGProtectionInfoView.h"
 #import "FGConstructionInfoView.h"
 #import "FGContactInfoView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HomeVC : UIViewController <UITextFieldDelegate> {
     URLRequest *req;
@@ -40,7 +41,7 @@
 @property (retain, nonatomic) FGProtectionInfoView* protectionInfoView;
 @property (retain, nonatomic) FGConstructionInfoView* constructionInfoView;
 @property (retain, nonatomic) FGContactInfoView* contactsView;
-
+@property (retain, nonatomic) IBOutlet MKMapView* map;
 
 - (IBAction) findBuilding;
 - (void) updateCurrentBuilding:(FGBuilding*)building;
